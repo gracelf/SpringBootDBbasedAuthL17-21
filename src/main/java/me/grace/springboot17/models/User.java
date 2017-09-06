@@ -3,6 +3,7 @@ package me.grace.springboot17.models;
 import sun.java2d.loops.GeneralRenderer;
 import me.grace.springboot17.models.Role;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -25,8 +26,16 @@ public class User {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="enable")
-    private String enable;
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Column(name="enabled")
+    private boolean enabled;
 
     @Column(name="username")
     private String username;
@@ -35,6 +44,18 @@ public class User {
     @JoinTable(joinColumns =  @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
+
+    //constructor
+    public User(){
+        this.roles= new ArrayList<Role>();
+    }
+
+    //add a new role
+    public void addRole(Role role)
+    {
+        this.roles.add(role);
+    }
+
 
     public long getId() {
         return id;
@@ -76,13 +97,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEnable() {
-        return enable;
-    }
 
-    public void setEnable(String enable) {
-        this.enable = enable;
-    }
 
     public String getUsername() {
         return username;
@@ -99,4 +114,6 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
+
 }

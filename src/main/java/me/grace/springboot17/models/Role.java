@@ -2,6 +2,7 @@ package me.grace.springboot17.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -16,6 +17,12 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
+
+    //Constructor for Role Class
+    public Role()
+    {
+        this.users = new ArrayList<User>();
+    }
 
     public long getId() {
         return id;
@@ -39,5 +46,11 @@ public class Role {
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }
+
+    //add one user to the user collection
+    public void addUser(User user)
+    {
+        this.users.add(user);
     }
 }
