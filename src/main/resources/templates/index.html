@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta  charset="UTF-8" ></meta>
     <title>Title</title>
 </head>
 <body>
-<h2>Insecure Page</h2>
+<h2>Insecure Page, you can see this without login</h2>
 <a href="/secure">Secure Page</a>
+
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasAuthority('USER')">
+    This content is only shown to users.
+</div>
+
+<!--you will see "Logged user: anonymousUser" if not logged in-->
+Logged user: <span sec:authentication="name">The user is not logged in yet</span>
+<!--Roles: <span sec:authentication="principal.authorities">Principal Authorities not set</span>-->
 </body>
 </html>

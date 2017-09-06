@@ -27,6 +27,7 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    //this will be
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -79,6 +80,18 @@ public class HomeController {
         Role findR = roleRepo.findByRole("ADMIN");
         x+=findR.getRole()+" was found with an ID of "+findR.getId();
         return x;
+    }
+
+    @RequestMapping("/adduser")
+    public @ResponseBody String addUser()
+    {
+        User newUser= new User();
+        newUser.setEmail("user.email@gmail.com");
+        newUser.setUsername("newuser");
+        newUser.setPassword("password");
+        newUser.addRole(roleRepo.findByRole("USER"));
+        userRepo.save(newUser);
+        return "New user added!";
 
     }
 
@@ -97,8 +110,8 @@ public class HomeController {
 
 //For Mysql
 //    use lesson17to20;
-//    INSERT INTO ROLE VALUES(1, 'user');
-//    INSERT INTO ROLE VALUES(2, 'ADMIN');
+//    INSERT INTO role VALUES(1, 'USER');
+//    INSERT INTO role VALUES(2, 'ADMIN');
 //    INSERT INTO user_data VALUES (1, 'jim@jim.com', TRUE, 'Jim', 'Jimmerson', 'password', 'jim');
 //    INSERT INTO user_data VALUES (2, 'bob@bob.com', TRUE, 'Bob', 'Bobberson', 'password', 'bob');
 //    INSERT INTO user_data VALUES (3, 'admin@admin.com', TRUE, 'Admin', 'User', 'password', 'admin');

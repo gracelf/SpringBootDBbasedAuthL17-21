@@ -16,5 +16,27 @@
     <div><lable>Password:<input type="password" name="password"/></lable></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasAuthority('USER')">
+    This content is only shown to users.
+</div>
+
+<!--you will see "Logged user: anonymousUser" if not logged in-->
+Logged user: <span sec:authentication="name">The user is not logged in yet</span>
+<!--Roles: <span sec:authentication="principal.authorities">Principal Authorities not set</span>-->
+
+<!--for user that not logined, you can see the following content-->
+<div sec:authorize="Anonymous">
+    You are not login yet, please login
+</div>
+
+
 </body>
 </html>

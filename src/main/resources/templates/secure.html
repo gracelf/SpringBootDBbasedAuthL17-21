@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
@@ -7,5 +7,20 @@
 <body>
 <h3>Secure Page</h3>
 <a href="/logout">logout</a>
+
+<h2>It worked!</h2>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasAuthority('ROLE_USER')">
+    This content is only shown to users.
+</div>
+
+Logged user: <span sec:authentication="name">The user is not logged in yet</span>
+<!--Roles: <span sec:authentication="principal.authorities">Principal Authorities not set</span>-->
+
 </body>
 </html>
