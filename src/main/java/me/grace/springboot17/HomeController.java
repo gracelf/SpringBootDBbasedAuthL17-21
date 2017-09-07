@@ -95,6 +95,15 @@ public class HomeController {
 
     }
 
+    @RequestMapping("/addnewrole")
+    public @ResponseBody String addnewRoles()
+    {
+        Role newrole = new Role();
+        newrole.setRole("superAdmin");
+        roleRepo.save(newrole);
+        return "new role added";
+    }
+
     //user is the owner class, so save from the user side
     @RequestMapping("/addadmin")
     public @ResponseBody String addAdmin()
@@ -130,6 +139,13 @@ public class HomeController {
             model.addAttribute("message", "Admin Account Successfully Created");
         }
         return "index";
+    }
+
+    //just a test to see if autherization access in securityconfig works
+    @RequestMapping("/admin")
+    public String adminpage()
+    {
+        return "admin";
     }
 
 

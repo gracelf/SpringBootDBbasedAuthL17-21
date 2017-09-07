@@ -32,9 +32,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
+
+        //autherization with different roles, change hasRole() into hasAuthorization()
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/")
+//                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+//                .antMatchers("/admin")
+//                .access("hasRole('ROLE_ADMIN')")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").permitAll()
+//                .and()
+//                .httpBasic();
+
         http
                 .authorizeRequests()
                 .antMatchers("/", "/adduser", "/register","/css/**", "/img/**", "/js/**", "/fonts/**", "/font-awesome/**").permitAll()
+
+                //the following doesn't work for the Spring 4 use "hasAuthority"
+//                .antMatchers("/admin")
+//                .access("hasRole('ROLE_ADMIN')")
+
+                // the following works, only when has role as "ADMIN", the user can see /admin route
+                .antMatchers("/admin")
+                .access("hasAuthority('ADMIN')")
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
