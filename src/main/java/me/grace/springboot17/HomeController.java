@@ -95,6 +95,44 @@ public class HomeController {
 
     }
 
+    //user is the owner class, so save from the user side
+    @RequestMapping("/addadmin")
+    public @ResponseBody String addAdmin()
+    {
+        User newUser= new User();
+        newUser.setEmail("admin.email@gmail.com");
+        newUser.setUsername("newadmin");
+        newUser.setPassword("password");
+        newUser.addRole(roleRepo.findByRole("ADMIN"));
+        userRepo.save(newUser);
+        return "New admin added!";
+
+    }
+
+
+    @RequestMapping(value="/registerAdmin", method = RequestMethod.GET)
+    public String showRegistrationformforAdmin(Model model){
+        model.addAttribute("user", new User());
+        return "adminregistration";
+    }
+
+    @RequestMapping(value="/registerAdmin", method = RequestMethod.POST)
+    public String processRegistrationPageforAdmin(@Valid @ModelAttribute("user") User user, BindingResult bResult, Model model)
+    {
+        model.addAttribute("user", new User());
+
+        if (bResult.hasErrors())
+        {
+            return "registration";
+        }
+        else{
+            userService.saveAdmin(user);
+            model.addAttribute("message", "Admin Account Successfully Created");
+        }
+        return "index";
+    }
+
+
 }
 
 //    INSERT INTO ROLE VALUES(1, 'user');

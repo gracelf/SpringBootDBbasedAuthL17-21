@@ -2,40 +2,108 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymleaf.org"
       xmlns:sec="www.thymleaf.org/thymleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <title>Resume Database</title>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"-->
+    <!--integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/additional.css">
+
 </head>
+
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><lable>User Name:<input type="text" name="username"/></lable></div>
-    <div><lable>Password:<input type="password" name="password"/></lable></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
 
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+<!--<div class="container" align="center">-->
+    <!--<div class="jumbotron">-->
+        <!--<img src="img/callout.jpg" class="img-rounded" style="width:100%; height:35%" align="center"/>-->
+        <!--<h2 align="center"><b>Welcome to the Resume Database!</b></h2>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="container">
+
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+
+    <form th:action="@{/login}" method="post">
+
+        <div class="form-group">
+            <label>User Name:</label>
+            <input type="text" class="form-control" placeholder="Enter user name" name="username">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" name="password">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-default" value="Sign In">Sign in</button>
+
+    </form>
+
 </div>
 
-<div sec:authorize="hasAuthority('ADMIN')">
-    This content is only shown to administrators.
-</div>
-<div sec:authorize="hasAuthority('USER')">
-    This content is only shown to users.
+
+<div class="container">
+    <footer align="center">
+        <h5>&copy; Developed by Grace 2017</h5>
+    </footer>
 </div>
 
-<!--you will see "Logged user: anonymousUser" if not logged in-->
-Logged user: <span sec:authentication="name">The user is not logged in yet</span>
-<!--Roles: <span sec:authentication="principal.authorities">Principal Authorities not set</span>-->
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!--for user that not logined, you can see the following content-->
-<div sec:authorize="Anonymous">
-    You are not login yet, please login
-</div>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymleaf.org"-->
+      <!--xmlns:sec="www.thymleaf.org/thymleaf-extras-springsecurity3">-->
+<!--<head>-->
+    <!--<title>Spring Security Example</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:if="${param.error}">-->
+    <!--Invalid username and password.-->
+<!--</div>-->
+<!--<div th:if="${param.logout}">-->
+    <!--You have been logged out.-->
+<!--</div>-->
+<!--<form th:action="@{/login}" method="post">-->
+    <!--<div><lable>User Name:<input type="text" name="username"/></lable></div>-->
+    <!--<div><lable>Password:<input type="password" name="password"/></lable></div>-->
+    <!--<div><input type="submit" value="Sign In"/></div>-->
+<!--</form>-->
+
+<!--<div sec:authorize="isAuthenticated()">-->
+    <!--This content is only shown to authenticated users.-->
+<!--</div>-->
+
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+    <!--This content is only shown to administrators.-->
+<!--</div>-->
+<!--<div sec:authorize="hasAuthority('USER')">-->
+    <!--This content is only shown to users.-->
+<!--</div>-->
+
+<!--&lt;!&ndash;you will see "Logged user: anonymousUser" if not logged in&ndash;&gt;-->
+<!--Logged user: <span sec:authentication="name">The user is not logged in yet</span>-->
+<!--&lt;!&ndash;Roles: <span sec:authentication="principal.authorities">Principal Authorities not set</span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;for user that not logined, you can see the following content&ndash;&gt;-->
+<!--<div sec:authorize="Anonymous">-->
+    <!--You are not login yet, please login-->
+<!--</div>-->
 
 
 </body>
