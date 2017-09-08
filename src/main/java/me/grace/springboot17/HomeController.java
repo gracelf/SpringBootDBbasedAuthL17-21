@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class HomeController {
@@ -39,11 +40,14 @@ public class HomeController {
     }
 
     @RequestMapping("/secure")
-    public String admin(){
+    public String admin(Principal p, Model model){
+        System.out.println("////" +p.getName());
+        System.out.println("////" +p.toString());
+        model.addAttribute("pName", p.getName());
         return "secure";
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
+    @RequestMapping( value="/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new User());
         return "registration";
@@ -52,6 +56,8 @@ public class HomeController {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult bResult, Model model)
     {
+
+
         model.addAttribute("user", new User());
 
         if (bResult.hasErrors())
@@ -62,6 +68,9 @@ public class HomeController {
             userService.saveUser(user);
             model.addAttribute("message", "User Account Successfully Created");
         }
+        System.out.println("////");
+
+
         return "index";
     }
 
@@ -70,6 +79,7 @@ public class HomeController {
     @RequestMapping("/testRoles")
     public @ResponseBody String showRoles()
     {
+
         Iterable <Role> r = roleRepo.findAll();
         String x="<h2>ROLE DETAILS</h2>";
         for(Role item:r)
@@ -83,8 +93,9 @@ public class HomeController {
     }
 
     @RequestMapping("/adduser")
-    public @ResponseBody String addUser()
+    public @ResponseBody String addUser(Principal p)
     {
+        System.out.println("////" +p.getName());
         User newUser= new User();
         newUser.setEmail("user.email@gmail.com");
         newUser.setUsername("newuser");

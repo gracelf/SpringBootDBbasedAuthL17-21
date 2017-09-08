@@ -8,6 +8,10 @@
 <h3>Secure Page</h3>
 <a href="/logout">logout</a>
 
+
+
+<p th:text="'Principal: '+ ${pName}" />
+
 <h2>It worked!</h2>
 <div sec:authorize="isAuthenticated()">
     This content is only shown to authenticated users.
