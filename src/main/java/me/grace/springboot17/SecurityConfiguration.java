@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/adduser", "/register","/css/**", "/img/**", "/js/**", "/fonts/**", "/font-awesome/**").permitAll()
+                .antMatchers("/", "/adduser", "/register","/registerAdmin", "/css/**", "/img/**", "/js/**", "/fonts/**", "/font-awesome/**").permitAll()
 
                 //the following doesn't work for the Spring 4 use "hasAuthority"
 //                .antMatchers("/admin")
